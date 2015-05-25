@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+    }
+}
+
+ext {
+    compileSdkVersionGlobal = 22
+    buildToolsVersionGlobal = "22.0.1"
+    minSdkVersionGlobal = 14
+    targetSdkVersionGlobal = 22
+    versionCodeGlobal = 1
+    verionNameGlobal = "1.0"
+
+    /**
+     * Libraries and versions
+     */
+    rxJavaVersion = "1.0.11"
+    okHttpVersion = "2.4.0"
+    apacheLangVersion = "3.4"
+    jodaTimeVersion = "2.7"
+    daggerVersion = "2.0"
+    javaxAnnVersion = "10.0-b28"
+    appCompatVersion = "22.1.1"
+    recyclerViewVersion = "22.1.1"
+    cardViewVersion = "22.1.1"
+
+    rxJavaLib = "io.reactivex:rxjava:$rxJavaVersion"
+    okHttpLib = "com.squareup.okhttp:okhttp:$okHttpVersion"
+    jodaTimeLib = "joda-time:joda-time:$jodaTimeVersion"
+    apacheLangLib = "org.apache.commons:commons-lang3:$apacheLangVersion"
+    daggerLib = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompilerLib = "com.google.dagger:dagger-compiler:$daggerVersion"
+    javaxAnnLib = "org.glassfish:javax.annotation:$javaxAnnVersion"
+    appCompatLib = "com.android.support:appcompat-v7:$appCompatVersion"
+    recyclerViewLib = "com.android.support:recyclerview-v7:$recyclerViewVersion"
+    cardViewLib = "com.android.support:cardview-v7:$cardViewVersion"
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
