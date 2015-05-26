@@ -1,6 +1,7 @@
 package com.ivangusef.data.executor;
 
 import android.os.Process;
+import android.support.annotation.NonNull;
 
 import com.ivangusef.domain.executor.ThreadExecutor;
 
@@ -25,10 +26,7 @@ public class JobExecutor implements ThreadExecutor {
     }
 
     @Override
-    public void execute(Runnable runnable) {
-        if (runnable == null) {
-            throw new IllegalArgumentException("Runnable to execute cannot be null");
-        }
+    public void execute(@NonNull final Runnable runnable) {
         executorService.execute(runnable);
     }
 
@@ -38,8 +36,9 @@ public class JobExecutor implements ThreadExecutor {
 
         private int counter = 0;
 
+        @NonNull
         @Override
-        public Thread newThread(Runnable runnable) {
+        public Thread newThread(@NonNull final Runnable runnable) {
             final Thread t = new Thread(runnable, THREAD_NAME + counter++);
             t.setPriority(Process.THREAD_PRIORITY_BACKGROUND);
             return t;

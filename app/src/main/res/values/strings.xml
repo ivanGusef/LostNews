@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LostNews</string>
+    <string name="iv_desc_lost_news_image">TV Series preview image</string>
+    <string name="lost_news_empty_text">The news feed of LostFilm.TV is empty</string>
 </resources>
