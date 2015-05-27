@@ -51,7 +51,7 @@ public class ResponseDataMapper {
                 current.setImageUrl(iconUrl);
             }
 
-            current.setPublishDateTime(DateTime.parse(rssEntity.getPubDate(), DateTimeFormat.forPattern("EE, dd MMM yyyy hh:mm:ss Z")));
+            current.setPublishDateTime(DateTime.parse(rssEntity.getPubDate(), DateTimeFormat.forPattern("EE, dd MMM yyyy HH:mm:ss Z")).getMillis());
             current.setUrl(rssEntity.getLink());
             if (previous != null && previous.equals(current)) {
                 if (current.getQualities() != null) {

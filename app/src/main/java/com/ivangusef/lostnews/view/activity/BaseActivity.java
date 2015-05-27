@@ -28,9 +28,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param containerViewId The container view to where add the fragment.
      * @param fragment        The fragment to be added.
      */
-    protected void addFragment(final int containerViewId, @NonNull final Fragment fragment) {
+    protected void addFragment(final int containerViewId, @NonNull final Fragment fragment, @Nullable final String tag) {
         final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(containerViewId, fragment);
+        fragmentTransaction.add(containerViewId, fragment, tag);
         fragmentTransaction.commit();
     }
 

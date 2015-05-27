@@ -9,8 +9,10 @@
         style="@style/CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dip"
-        android:layout_marginTop="8dip"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         app:cardCornerRadius="4dp">
 
         <LinearLayout
@@ -25,6 +27,8 @@
                 android:layout_height="64dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:contentDescription="@string/iv_desc_lost_news_image"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
@@ -46,7 +50,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Первородные (Originals)"/>
 
@@ -55,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAllCaps="true"
-                        android:textSize="20sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="02.01"/>
                 </LinearLayout>
@@ -64,7 +68,7 @@
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:text="Отчаявшийся Ник"/>
             </LinearLayout>
 

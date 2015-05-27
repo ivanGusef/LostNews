@@ -40,6 +40,7 @@ public class LostNewsModelDataMapper {
             }
             lostNewsModel.setQualities(qualities);
             lostNewsModel.setUrl(lostNews.getUrl());
+            lostNewsModels.add(lostNewsModel);
         }
 
         return lostNewsModels;

@@ -20,7 +20,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.InjectViews;
 
 /**
  * Created by Ivan_Gusev1 on 5/26/2015.
@@ -65,8 +64,12 @@ public final class LostNewsAdapter extends RecyclerView.Adapter<LostNewsViewHold
 
 class LostNewsViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectViews({R.id.title, R.id.description, R.id.seasonEpisode})
-    TextView titleView, descriptionView, seasonEpisodeView;
+    @InjectView(R.id.title)
+    TextView  titleView;
+    @InjectView(R.id.description)
+    TextView  descriptionView;
+    @InjectView(R.id.seasonEpisode)
+    TextView  seasonEpisodeView;
     @InjectView(R.id.image)
     ImageView imageView;
 

@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.ivangusef.data.entity.LostNewsEntity;
 import com.ivangusef.domain.LostNews;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class LostNewsDataMapper {
             lostNews.setDescription(lostNewsEntity.getDescription());
             lostNews.setImageUrl(lostNewsEntity.getImageUrl());
             lostNews.setSeasonEpisode(lostNewsEntity.getSeasonEpisode());
-            lostNews.setPublishDateTime(lostNewsEntity.getPublishDateTime());
+            lostNews.setPublishDateTime(new DateTime(lostNewsEntity.getPublishDateTime()));
             lostNews.setQualities(lostNewsEntity.getQualities());
             lostNews.setUrl(lostNewsEntity.getUrl());
             lostNewsList.add(lostNews);
@@ -59,7 +61,7 @@ public class LostNewsDataMapper {
             lostNewsEntity.setDescription(lostNews.getDescription());
             lostNewsEntity.setImageUrl(lostNews.getImageUrl());
             lostNewsEntity.setSeasonEpisode(lostNews.getSeasonEpisode());
-            lostNewsEntity.setPublishDateTime(lostNews.getPublishDateTime());
+            lostNewsEntity.setPublishDateTime(lostNews.getPublishDateTime().getMillis());
             lostNewsEntity.setQualities(lostNews.getQualities());
             lostNewsEntity.setUrl(lostNews.getUrl());
             lostNewsEntities.add(lostNewsEntity);

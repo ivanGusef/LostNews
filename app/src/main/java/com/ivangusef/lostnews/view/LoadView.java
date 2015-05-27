@@ -11,15 +11,7 @@ interface LoadView {
 
     void hideLoading();
 
-    void showEmpty();
-
-    void hideEmpty();
-
-    void showContent();
-
-    void hideContent();
-
-    void showError(@NonNull final String message);
+    void showError(@NonNull final CharSequence message);
 
     Context getContext();
 }

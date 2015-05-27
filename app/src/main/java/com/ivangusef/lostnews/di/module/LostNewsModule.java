@@ -2,9 +2,12 @@ package com.ivangusef.lostnews.di.module;
 
 import android.support.annotation.NonNull;
 
+import com.ivangusef.domain.LostNews;
 import com.ivangusef.domain.interactor.GetNewsUseCase;
 import com.ivangusef.domain.interactor.UseCase;
 import com.ivangusef.lostnews.di.PerActivity;
+
+import java.util.List;
 
 import javax.inject.Named;
 
@@ -21,7 +24,7 @@ public class LostNewsModule {
     @Provides
     @PerActivity
     @Named("news")
-    UseCase provideGetUserListUseCase(@NonNull final GetNewsUseCase getNewsUseCase) {
+    UseCase<List<LostNews>> provideGetUserListUseCase(@NonNull final GetNewsUseCase getNewsUseCase) {
         return getNewsUseCase;
     }
 }

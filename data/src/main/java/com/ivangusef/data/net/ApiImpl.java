@@ -57,7 +57,7 @@ public class ApiImpl implements Api {
 
     @Nullable
     private String getRssFromApi() throws MalformedURLException {
-        return ApiConnection.createGET(Api.API_URL_GET_RSS).requestSyncCall();
+        return ApiConnection.createGET(Api.API_URL_GET_RSS, "text/xml; charset=windows-1251").requestSyncCall();
     }
 
     /**

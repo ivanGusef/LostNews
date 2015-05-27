@@ -1,7 +1,5 @@
 package com.ivangusef.data.entity;
 
-import org.joda.time.DateTime;
-
 import java.util.List;
 
 /**
@@ -11,11 +9,8 @@ public final class LostNewsEntity {
     private String       title;
     private String       description;
     private String       imageUrl;
-    /**
-     * e.g. 01.05 means 1st season, 5th episode or 01 means completed 1st season
-     */
     private String       seasonEpisode;
-    private DateTime     publishDateTime;
+    private Long         publishDateTime;
     private List<String> qualities;
     private String       url;
 
@@ -51,11 +46,11 @@ public final class LostNewsEntity {
         this.seasonEpisode = seasonEpisode;
     }
 
-    public DateTime getPublishDateTime() {
+    public Long getPublishDateTime() {
         return publishDateTime;
     }
 
-    public void setPublishDateTime(final DateTime publishDateTime) {
+    public void setPublishDateTime(final Long publishDateTime) {
         this.publishDateTime = publishDateTime;
     }
 
@@ -87,7 +82,6 @@ public final class LostNewsEntity {
         final LostNewsEntity lostNewsEntity = (LostNewsEntity) o;
 
         return title.equals(lostNewsEntity.title) && seasonEpisode.equals(lostNewsEntity.seasonEpisode);
-
     }
 
     @Override

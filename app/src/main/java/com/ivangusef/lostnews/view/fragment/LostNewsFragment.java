@@ -29,6 +29,10 @@ import butterknife.InjectView;
  */
 public final class LostNewsFragment extends BaseFragment implements LostNewsView {
 
+    public static LostNewsFragment create() {
+        return new LostNewsFragment();
+    }
+
     @Inject
     LostNewsPresenter lostNewsPresenter;
 
@@ -43,7 +47,7 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_lost_news, container, true);
+        final View fragmentView = inflater.inflate(R.layout.fragment_lost_news, container, false);
         ButterKnife.inject(this, fragmentView);
         setupUI();
 
@@ -99,36 +103,20 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
 
     @Override
     public void showLoading() {
+        getActivity().setProgressBarIndeterminateVisibility(true);
         progressView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideLoading() {
-        progressView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showEmpty() {
-        emptyView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideEmpty() {
-        emptyView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showContent() {
-        recyclerView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideContent() {
         recyclerView.setVisibility(View.GONE);
     }
 
     @Override
-    public void showError(@NonNull final String message) {
+    public void hideLoading() {
+        getActivity().setProgressBarIndeterminateVisibility(false);
+        progressView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError(@NonNull final CharSequence message) {
         showToastMessage(message);
     }
 

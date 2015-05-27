@@ -8,6 +8,7 @@ import com.ivangusef.domain.exception.ErrorBundle;
 import com.ivangusef.domain.interactor.DefaultSubscriber;
 import com.ivangusef.domain.interactor.UseCase;
 import com.ivangusef.lostnews.di.PerActivity;
+import com.ivangusef.lostnews.exception.ErrorMessageFactory;
 import com.ivangusef.lostnews.model.mapper.LostNewsModelDataMapper;
 import com.ivangusef.lostnews.view.LostNewsView;
 
@@ -64,23 +65,19 @@ public final class LostNewsPresenter extends DefaultSubscriber<List<LostNews>> i
     }
 
     private void showViewLoading() {
-        lostNewsView.hideEmpty();
-        lostNewsView.hideContent();
         lostNewsView.showLoading();
     }
 
     private void hideViewLoading() {
-        lostNewsView.hideEmpty();
-        lostNewsView.showContent();
         lostNewsView.hideLoading();
     }
 
     private void showErrorMessage(@NonNull final ErrorBundle errorBundle) {
-        /*String errorMessage = ErrorMessageFactory.create(
+        final CharSequence errorMessage = ErrorMessageFactory.create(
                 lostNewsView.getContext(),
                 errorBundle.getException()
-        );*/
-        lostNewsView.showError(""/*errorMessage*/);
+        );
+        lostNewsView.showError(errorMessage);
     }
 
     private void showLostNewsInView(@NonNull final List<LostNews> lostNewsList) {
@@ -92,6 +89,11 @@ public final class LostNewsPresenter extends DefaultSubscriber<List<LostNews>> i
     }
 
     @Override
+    public void onNext(@NonNull final List<LostNews> lostNewsList) {
+        showLostNewsInView(lostNewsList);
+    }
+
+    @Override
     public void onCompleted() {
         hideViewLoading();
     }
@@ -100,10 +102,5 @@ public final class LostNewsPresenter extends DefaultSubscriber<List<LostNews>> i
     public void onError(Throwable e) {
         hideViewLoading();
         showErrorMessage(new DefaultErrorBundle((Exception) e));
-    }
-
-    @Override
-    public void onNext(@NonNull final List<LostNews> lostNewsList) {
-        showLostNewsInView(lostNewsList);
     }
 }
