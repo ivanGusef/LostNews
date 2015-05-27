@@ -25,6 +25,7 @@ public class LostNewsCacheImpl implements LostNewsCache {
 
     private static final String TAG = LostNewsCacheImpl.class.getSimpleName();
 
+    private static final String CACHE_DIR_NAME  = "data_cache";
     private static final String CACHE_FILE_NAME = "news_cache";
 
     private static final String SETTINGS_FILE_NAME             = "com.ivangusef.SETTINGS";
@@ -46,7 +47,12 @@ public class LostNewsCacheImpl implements LostNewsCache {
         this.serializer = serializer;
         this.threadExecutor = threadExecutor;
 
-        cacheDir = context.getCacheDir();
+        final File cacheDir = new File(context.getCacheDir(), CACHE_DIR_NAME);
+        if (cacheDir.exists() || cacheDir.mkdirs()) {
+            this.cacheDir = cacheDir;
+        } else {
+            this.cacheDir = context.getCacheDir();
+        }
     }
 
     @Override
