@@ -1,5 +1,6 @@
 package com.ivangusef.lostnews.view.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.ivangusef.lostnews.model.LostNewsModel;
 import com.ivangusef.lostnews.presenter.LostNewsPresenter;
 import com.ivangusef.lostnews.view.LostNewsView;
 import com.ivangusef.lostnews.view.adapter.LostNewsAdapter;
+import com.ivangusef.lostnews.view.component.SimpleItemDecoration;
 
 import java.util.List;
 
@@ -33,6 +35,10 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
         return new LostNewsFragment();
     }
 
+    public interface OnLostNewsClickListener {
+        void onLostNewsClick(@NonNull final LostNewsModel lostNewsModel);
+    }
+
     @Inject
     LostNewsPresenter lostNewsPresenter;
 
@@ -43,7 +49,25 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
     @InjectView(R.id.empty)
     View         emptyView;
 
-    private LostNewsAdapter adapter;
+    private LostNewsAdapter         adapter;
+    private OnLostNewsClickListener listener;
+
+    private final LostNewsAdapter.OnItemClickListener onItemClickListener = new LostNewsAdapter.OnItemClickListener() {
+        @Override
+        public void onItemClick(@NonNull final LostNewsModel lostNewsModel) {
+            if (lostNewsPresenter != null) {
+                lostNewsPresenter.onUserClick(lostNewsModel);
+            }
+        }
+    };
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnLostNewsClickListener) {
+            listener = (OnLostNewsClickListener) activity;
+        }
+    }
 
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -79,6 +103,12 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
         lostNewsPresenter.destroy();
     }
 
+    @Override
+    public void onDetach() {
+        listener = null;
+        super.onDetach();
+    }
+
     private void initialize() {
         getComponent(LostNewsComponent.class).inject(this);
         lostNewsPresenter.setView(this);
@@ -86,7 +116,9 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
 
     private void setupUI() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter = new LostNewsAdapter(getActivity()));
+        recyclerView.addItemDecoration(new SimpleItemDecoration(getActivity(), android.R.drawable.divider_horizontal_bright));
+        adapter = new LostNewsAdapter(getActivity(), onItemClickListener);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
@@ -99,6 +131,13 @@ public final class LostNewsFragment extends BaseFragment implements LostNewsView
     @Override
     public void renderLostNews(@NonNull final List<LostNewsModel> lostNewsModels) {
         adapter.setData(lostNewsModels);
+    }
+
+    @Override
+    public void viewLostNews(@NonNull final LostNewsModel lostNewsModel) {
+        if (listener != null) {
+            listener.onLostNewsClick(lostNewsModel);
+        }
     }
 
     @Override

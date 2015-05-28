@@ -9,6 +9,7 @@ import com.ivangusef.domain.interactor.DefaultSubscriber;
 import com.ivangusef.domain.interactor.UseCase;
 import com.ivangusef.lostnews.di.PerActivity;
 import com.ivangusef.lostnews.exception.ErrorMessageFactory;
+import com.ivangusef.lostnews.model.LostNewsModel;
 import com.ivangusef.lostnews.model.mapper.LostNewsModelDataMapper;
 import com.ivangusef.lostnews.view.LostNewsView;
 
@@ -82,6 +83,10 @@ public final class LostNewsPresenter extends DefaultSubscriber<List<LostNews>> i
 
     private void showLostNewsInView(@NonNull final List<LostNews> lostNewsList) {
         lostNewsView.renderLostNews(lostNewsModelDataMapper.transform(lostNewsList));
+    }
+
+    public void onUserClick(@NonNull final LostNewsModel lostNewsModel) {
+        lostNewsView.viewLostNews(lostNewsModel);
     }
 
     private void getNews() {

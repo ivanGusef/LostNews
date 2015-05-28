@@ -26,22 +26,31 @@ import butterknife.InjectView;
  */
 public final class LostNewsAdapter extends RecyclerView.Adapter<LostNewsViewHolder> {
 
+    public interface OnItemClickListener {
+        void onItemClick(@NonNull final LostNewsModel lostNewsModel);
+    }
+
     private final Context             context;
     private final List<LostNewsModel> data;
 
-    public LostNewsAdapter(@NonNull final Context context) {
+    private final OnItemClickListener onItemClickListener;
+
+    public LostNewsAdapter(@NonNull final Context context, final OnItemClickListener onItemClickListener) {
         this.context = context;
+        this.onItemClickListener = onItemClickListener;
         data = new ArrayList<>();
     }
 
     @Override
     public LostNewsViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        return new LostNewsViewHolder(LayoutInflater.from(context).inflate(R.layout.item_lost_news, parent, false));
+        final View itemView = LayoutInflater.from(context).inflate(R.layout.item_lost_news, parent, false);
+        return new LostNewsViewHolder(itemView, onItemClickListener);
     }
 
     @Override
     public void onBindViewHolder(final LostNewsViewHolder holder, final int position) {
         final LostNewsModel model = data.get(position);
+        holder.setLostNewsModel(model);
         holder.titleView.setText(model.getTitle());
         holder.descriptionView.setText(model.getDescription());
         holder.seasonEpisodeView.setText(model.getSeasonEpisode());
@@ -64,6 +73,8 @@ public final class LostNewsAdapter extends RecyclerView.Adapter<LostNewsViewHold
 
 class LostNewsViewHolder extends RecyclerView.ViewHolder {
 
+    final OnItemClickListenerWrapper listenerWrapper;
+
     @InjectView(R.id.title)
     TextView  titleView;
     @InjectView(R.id.description)
@@ -73,8 +84,36 @@ class LostNewsViewHolder extends RecyclerView.ViewHolder {
     @InjectView(R.id.image)
     ImageView imageView;
 
-    public LostNewsViewHolder(@NonNull final View itemView) {
+    LostNewsViewHolder(@NonNull final View itemView, @Nullable final LostNewsAdapter.OnItemClickListener onItemClickListener) {
         super(itemView);
+        listenerWrapper = new OnItemClickListenerWrapper(onItemClickListener);
         ButterKnife.inject(this, itemView);
+        ButterKnife.findById(itemView, R.id.clickable).setOnClickListener(listenerWrapper);
+    }
+
+    void setLostNewsModel(@NonNull final LostNewsModel lostNewsModel) {
+        listenerWrapper.setLostNewsModel(lostNewsModel);
+    }
+
+    static class OnItemClickListenerWrapper implements View.OnClickListener {
+
+        final LostNewsAdapter.OnItemClickListener onItemClickListener;
+
+        LostNewsModel lostNewsModel;
+
+        public OnItemClickListenerWrapper(@Nullable final LostNewsAdapter.OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        public void setLostNewsModel(@NonNull final LostNewsModel lostNewsModel) {
+            this.lostNewsModel = lostNewsModel;
+        }
+
+        @Override
+        public void onClick(final View v) {
+            if (onItemClickListener != null) {
+                onItemClickListener.onItemClick(lostNewsModel);
+            }
+        }
     }
 }

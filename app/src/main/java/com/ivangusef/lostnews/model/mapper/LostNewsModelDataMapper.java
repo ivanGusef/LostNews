@@ -47,7 +47,7 @@ public class LostNewsModelDataMapper {
     }
 
     private CharSequence makeTitle(@NonNull final LostNews lostNews) {
-        return lostNews.getTitle().replaceAll("([a-zA-Z0-9].*?)", "").trim();
+        return lostNews.getTitle().replaceAll("\\([a-zA-Z0-9].*?\\)", "").trim();
     }
 
     private CharSequence makeDescription(@NonNull final LostNews lostNews) {

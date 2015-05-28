@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface LostNewsView extends LoadView {
     void renderLostNews(@NonNull final List<LostNewsModel> lostNewsModels);
+
+    void viewLostNews(@NonNull final LostNewsModel lostNewsModel);
 }

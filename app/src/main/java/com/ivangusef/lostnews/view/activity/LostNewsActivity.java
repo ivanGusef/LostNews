@@ -1,6 +1,9 @@
 package com.ivangusef.lostnews.view.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Window;
 
@@ -8,12 +11,13 @@ import com.ivangusef.lostnews.R;
 import com.ivangusef.lostnews.di.HasComponent;
 import com.ivangusef.lostnews.di.component.DaggerLostNewsComponent;
 import com.ivangusef.lostnews.di.component.LostNewsComponent;
+import com.ivangusef.lostnews.model.LostNewsModel;
 import com.ivangusef.lostnews.view.fragment.LostNewsFragment;
 
 /**
  * Created by Ivan_Gusev1 on 5/26/2015.
  */
-public final class LostNewsActivity extends BaseActivity implements HasComponent<LostNewsComponent> {
+public final class LostNewsActivity extends BaseActivity implements HasComponent<LostNewsComponent>, LostNewsFragment.OnLostNewsClickListener {
 
     private static final String FRAGMENT_CONTENT = "contentFragment";
 
@@ -41,5 +45,11 @@ public final class LostNewsActivity extends BaseActivity implements HasComponent
     @Override
     public LostNewsComponent getComponent() {
         return lostNewsComponent;
+    }
+
+    @Override
+    public void onLostNewsClick(@NonNull final LostNewsModel lostNewsModel) {
+        //Open browser and go to news link
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(lostNewsModel.getUrl())));
     }
 }
