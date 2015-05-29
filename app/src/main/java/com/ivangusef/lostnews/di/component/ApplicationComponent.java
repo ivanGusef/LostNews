@@ -1,7 +1,6 @@
 package com.ivangusef.lostnews.di.component;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.ivangusef.domain.executor.PostExecutionThread;
 import com.ivangusef.domain.executor.ThreadExecutor;
@@ -19,7 +18,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = ApplicationModule.class)
 public interface ApplicationComponent {
-    void inject(@NonNull final BaseActivity baseActivity);
+    void inject(final BaseActivity baseActivity);
 
     //Exposed by sub-graphs
     Context context();

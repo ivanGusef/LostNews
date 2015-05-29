@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     @NonNull
     protected ApplicationComponent getApplicationComponent() {
-        return ((LostApplication) getApplication()).getApplicationComponent();
+        return ((LostApplication) getApplication()).getComponent();
     }
 
     /**

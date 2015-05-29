@@ -1,7 +1,5 @@
 package com.ivangusef.lostnews.di.component;
 
-import android.support.annotation.NonNull;
-
 import com.ivangusef.lostnews.di.PerActivity;
 import com.ivangusef.lostnews.di.module.ActivityModule;
 import com.ivangusef.lostnews.di.module.LostNewsModule;
@@ -15,5 +13,5 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, LostNewsModule.class})
 public interface LostNewsComponent extends ActivityComponent {
-    void inject(@NonNull final LostNewsFragment fragment);
+    void inject(final LostNewsFragment fragment);
 }
