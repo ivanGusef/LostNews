@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ivangusef.lostnews.R;
@@ -33,12 +34,19 @@ public final class LostNewsAdapter extends RecyclerView.Adapter<LostNewsViewHold
     private final Context             context;
     private final List<LostNewsModel> data;
 
+    private final int                       qualityColor;
+    private final LinearLayout.LayoutParams qualityLayoutParams;
+
     private final OnItemClickListener onItemClickListener;
 
     public LostNewsAdapter(@NonNull final Context context, final OnItemClickListener onItemClickListener) {
         this.context = context;
         this.onItemClickListener = onItemClickListener;
         data = new ArrayList<>();
+
+        qualityColor = context.getResources().getColor(R.color.primary_material_light);
+        qualityLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        qualityLayoutParams.setMargins(0, 0, (int) (context.getResources().getDisplayMetrics().density * 8), 0);
     }
 
     @Override
@@ -54,6 +62,17 @@ public final class LostNewsAdapter extends RecyclerView.Adapter<LostNewsViewHold
         holder.titleView.setText(model.getTitle());
         holder.descriptionView.setText(model.getDescription());
         holder.seasonEpisodeView.setText(model.getSeasonEpisode());
+        holder.pubDateView.setText(model.getPublishDate());
+        holder.qualitiesContentView.removeAllViews();
+        for (CharSequence quality : model.getQualities()) {
+            final TextView qualityView = new TextView(context);
+            qualityView.setBackgroundResource(R.drawable.bg_quality);
+            qualityView.setText(quality);
+            qualityView.setTextSize(12);
+            qualityView.setTextColor(qualityColor);
+            qualityView.setLayoutParams(qualityLayoutParams);
+            holder.qualitiesContentView.addView(qualityView);
+        }
         Picasso.with(context).load(model.getImageUrl()).into(holder.imageView);
     }
 
@@ -81,6 +100,10 @@ class LostNewsViewHolder extends RecyclerView.ViewHolder {
     TextView  descriptionView;
     @InjectView(R.id.seasonEpisode)
     TextView  seasonEpisodeView;
+    @InjectView(R.id.pubDate)
+    TextView  pubDateView;
+    @InjectView(R.id.qualitiesContent)
+    ViewGroup qualitiesContentView;
     @InjectView(R.id.image)
     ImageView imageView;
 
@@ -110,7 +133,7 @@ class LostNewsViewHolder extends RecyclerView.ViewHolder {
         }
 
         @Override
-        public void onClick(final View v) {
+        public void onClick(@NonNull final View v) {
             if (onItemClickListener != null) {
                 onItemClickListener.onItemClick(lostNewsModel);
             }

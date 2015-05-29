@@ -26,7 +26,6 @@ public class LostNewsModelDataMapper {
         final List<LostNewsModel> lostNewsModels = new ArrayList<>();
 
         LostNewsModel lostNewsModel;
-        List<CharSequence> qualities;
         for (LostNews lostNews : lostNewsList) {
             lostNewsModel = new LostNewsModel();
             lostNewsModel.setTitle(makeTitle(lostNews));
@@ -34,11 +33,7 @@ public class LostNewsModelDataMapper {
             lostNewsModel.setImageUrl(lostNews.getImageUrl());
             lostNewsModel.setSeasonEpisode(makeSeasonEpisode(lostNews));
             lostNewsModel.setPublishDate(makePublishDate(lostNews));
-            qualities = new ArrayList<>();
-            for (String qualityStr : lostNews.getQualities()) {
-                qualities.add(qualityStr);
-            }
-            lostNewsModel.setQualities(qualities);
+            lostNewsModel.setQualities(makeQualities(lostNews));
             lostNewsModel.setUrl(lostNews.getUrl());
             lostNewsModels.add(lostNewsModel);
         }
@@ -58,13 +53,20 @@ public class LostNewsModelDataMapper {
         String result = lostNews.getSeasonEpisode().replace("S", "").replace("E", ".");
         if (result.contains(".")) {
             return result;
-        } else if (result.matches("0\\d+")) {
-            return result.replaceFirst("0+", "");
+        } else {
+            return "";
         }
-        return result;
     }
 
     private CharSequence makePublishDate(@NonNull final LostNews lostNews) {
         return lostNews.getPublishDateTime().toString("d.MM HH:mm");
+    }
+
+    private List<CharSequence> makeQualities(@NonNull final LostNews lostNews) {
+        final List<CharSequence> qualities = new ArrayList<>();
+        for (String qualityStr : lostNews.getQualities()) {
+            qualities.add(qualityStr);
+        }
+        return qualities;
     }
 }

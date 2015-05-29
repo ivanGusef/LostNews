@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.ivangusef.data.cache.LostNewsCache;
 import com.ivangusef.data.entity.mapper.ResponseDataMapper;
+import com.ivangusef.data.mock.MockDataProvider;
 import com.ivangusef.data.net.Api;
 import com.ivangusef.data.net.ApiImpl;
 
@@ -24,6 +25,7 @@ public final class LostNewsDataSourceProvider {
 
     private WeakReference<LostNewsDataSource> remoteDataSource;
     private WeakReference<LostNewsDataSource> localDataSource;
+    private WeakReference<LostNewsDataSource> mockDataSource;
 
     @Inject
     public LostNewsDataSourceProvider(@NonNull final Context context, @NonNull final LostNewsCache cache) {
@@ -34,7 +36,7 @@ public final class LostNewsDataSourceProvider {
     @NonNull
     public LostNewsDataSource getDataSource() {
         if (cache.isExpired()) {
-            return getRemoteDataSource();
+            return getMockDataSource()/*getRemoteDataSource()*/;
         } else {
             return getDiskDataSource();
         }
@@ -57,5 +59,15 @@ public final class LostNewsDataSourceProvider {
         }
 
         return localDataSource.get();
+    }
+
+    @NonNull
+    private LostNewsDataSource getMockDataSource() {
+        if (mockDataSource == null || mockDataSource.get() == null) {
+            final MockDataProvider mockDataProvider = new MockDataProvider(context, new ResponseDataMapper());
+            mockDataSource = new WeakReference<LostNewsDataSource>(new MockLostNewsDataSource(mockDataProvider));
+        }
+
+        return mockDataSource.get();
     }
 }

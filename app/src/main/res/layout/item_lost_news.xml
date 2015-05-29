@@ -16,13 +16,13 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_height="96dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/iv_desc_lost_news_image"
-        android:scaleType="centerCrop"
+        android:scaleType="fitStart"
         tools:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
 
     <LinearLayout
@@ -60,7 +60,22 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:textSize="14sp"
             tools:text="Отчаявшийся Ник"/>
+
+        <TextView
+            android:id="@+id/pubDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            tools:text="10.04.2015 12:20"/>
+
+        <LinearLayout
+            android:id="@+id/qualitiesContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"/>
     </LinearLayout>
 </LinearLayout>
